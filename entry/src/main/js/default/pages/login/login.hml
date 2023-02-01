@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="form-container">
+    <div class="input-item input-item-border">
+      <div class="input-content">
+        <text class="input-title">账号</text>
+        <input class="input" type="text" placeholder="请输入账号" onchange="inputChange('username')"></input>
+      </div>
+    </div>
+    <div class="input-item input-item-border">
+      <div class="input-content">
+        <text class="input-title">密码</text>
+        <input class="input" type="password" placeholder="请输入密码" onchange="inputChange('password')"></input>
+      </div>
+    </div>
+    <div class="input-item">
+      <div class="input-content">
+        <text class="input-title">验证码</text>
+        <input class="input" placeholder="请输入验证码" onchange="inputChange('code')"></input>
+        <image class="valicode-image" src="{{ codeImage }}"></image>
+      </div>
+    </div>
+    <div class="button-content">
+      <button class="login-button" type="capsule" waiting="{{ submitLoading }}" onclick="handleLogin">登录</button>
+    </div>
+  </div>
+</div>

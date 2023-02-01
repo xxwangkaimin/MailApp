@@ -1,0 +1,68 @@
+.container {
+  padding-top: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container .input-item {
+  position: relative;
+  padding: 0px 15px;
+  display: flex;
+  width: 100%;
+}
+
+.input-item .input-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-item-border .input-content {
+  border-bottom: 1px solid #ccc;
+}
+
+.input-content .input-title {
+  margin-right: 12px;
+  width: 120px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.input-content .input {
+  flex: 1;
+  padding: 0px;
+  background-color: #ffffff;
+  border-radius: 0px;
+}
+
+.input-content .valicode-image {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -30px;
+  width: 160px;
+  height: 60px;
+  object-fit: fill;
+}
+
+.button-content {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0px 15px;
+}
+
+.login-button {
+  width: 100%;
+  background-color: #1989fa;
+  color: #fff;
+}

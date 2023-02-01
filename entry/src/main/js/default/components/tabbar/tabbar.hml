@@ -1,0 +1,9 @@
+<toolbar class='toolbarContain' style="position: fixed; bottom: 0px;background-color: #ffffff;">
+  <toolbar-item
+    for="{{tabbarList}}"
+    icon="{{$idx === active ? $item.activeIcon : $item.inactiveIcon}}"
+    value='{{$item.text}}'
+    style="color: {{ $idx === active ? '#f2190c' : '#8b8b8b'}}"
+    onclick="itemClick($item)"
+    ></toolbar-item>
+</toolbar>

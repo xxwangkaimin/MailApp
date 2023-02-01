@@ -1,0 +1,7 @@
+<element name="tabbar" src="../../components/tabbar/tabbar.hml"></element>
+<div class="container">
+  <text class="title">
+    {{ title }}
+  </text>
+  <tabbar></tabbar>
+</div>

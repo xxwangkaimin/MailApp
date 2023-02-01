@@ -1,0 +1,39 @@
+<element name="tabbar" src="../../components/tabbar/tabbar.hml"></element>
+<div class="page-wrapper">
+  <div class="search-wrapper">
+    <div class="search-container">
+      <div class="input-content">
+        <image class="search-icon" src="../../common/images/index/search.png"></image>
+        <text class="search-key" onclick="searchKeyClick">{{ searchKey }}</text>
+      </div>
+    </div>
+  </div>
+  <div class="category-container">
+    <div class="tabs">
+      <div ref="tabbar" class="tab-bar" id="tabbar">
+        <div for="{{tabList}}" class="tab-bar-item {{$idx === tabsIndex ? 'tab-bar-item-active' : ''}}" onclick="handleTabClick($idx)">
+          <text class="tab-text" style="color: {{$idx === tabsIndex ? '#e93b3d' : '#333'}};">{{ $item.title }}</text>
+        </div>
+      </div>
+      <div class="tabcontent" id="tabcontent">
+        <div show="{{!dataLoading}}" ref="tabsecondcontent" class="tab-second-content">
+          <div for="{{value in tabSecondList}}" class="tab-second-item">
+            <div class="second-title">
+              <text class="second-title-text">{{value.title}}</text>
+            </div>
+            <div class="second-content">
+              <div for="{{temp in value.children}}" class="second-item">
+                <image class="category-image" src="{{temp.image}}"></image>
+                <text class="category-text">{{temp.text}}</text>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div show="{{dataLoading}}" class="data-loading">
+          <image class="loading-gif" src="../../common/images/loaddata.gif"></image>
+        </div>
+      </div>
+    </div>
+  </div>
+  <tabbar></tabbar>
+</div>

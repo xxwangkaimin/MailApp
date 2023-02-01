@@ -1,0 +1,135 @@
+<element name="tabbar" src="../../components/tabbar/tabbar.hml"></element>
+<div class="page">
+  <div class="container" style="padding-top: {{ cartList.length > 0 ? '86px' : '40px' }};
+    padding-bottom: {{ cartList.length > 0 ? '110px' : '56px' }};">
+    <div class="header">
+      <div class="headedr-title">
+        <text class="header-title-text">购物车</text>
+      </div>
+      <div class="header-address">
+        <image class="address-icon" src="../../common/images/icon_location.png"></image>
+        <text class="header-address-text">配送至:金水路与燕黑路交叉口西北角兴业大厦10楼1010室</text>
+      </div>
+      <div if="{{ cartList.length > 0 }}" class="header-edit-content" onclick="handleChangeEdit">
+        <text if="{{ ! isEdit }}" class="header-edit-text">编辑</text>
+        <text if="{{ isEdit }}" class="header-edit-text">完成</text>
+      </div>
+    </div>
+    <div if="{{ cartList.length > 0 }}" class="count-statistc">
+      <text class="count-total">全部 {{ totalCount }}</text>
+    </div>
+    <div if="{{cartList.length > 0 && !dataLoading}}" class="cart-conent">
+      <div for="{{ cartList }}" class="cart-module">
+        <div class="module-shop-name">
+          <div class="checkbox-content">
+            <div class="checkbox-image-content" onclick="handleShopSelect($item)">
+              <image if="{{ $item.checked }}" class="checkbox-image-item" src="../../common/images/icon_selected.png">
+              </image>
+              <image if="{{ ! $item.checked }}" class="checkbox-image-item"
+                     src="../../common/images/icon_unselected.png"></image>
+            </div>
+          </div>
+          <text class="shop-name">{{ $item.shopName }}</text>
+          <image src="../../common/images/icon_arrow.png" class="jump-icon"></image>
+        </div>
+        <div class="goods-list">
+          <div for="{{ value in $item.sorted }}" class="goods-item">
+            <div class="checkbox-content">
+              <div class="checkbox-image-content" onclick="handleGoodsSelect(value, $item)">
+                <image if="{{ value.checked }}" class="checkbox-image-item" src="../../common/images/icon_selected.png">
+                </image>
+                <image if="{{ ! value.checked }}" class="checkbox-image-item"
+                       src="../../common/images/icon_unselected.png"></image>
+              </div>
+            </div>
+            <div class="goods-content">
+              <div class="goods-image-content">
+                <image class="goods-image" src="https://img10.360buyimg.com/mobilecms/{{ value.ImageUrlRN }}"></image>
+              </div>
+              <div class="goods-info-content">
+                <div class="goods-name">
+                  <text class="goods-name-text">{{ value.Name }}</text>
+                </div>
+                <div class="goods-specification" onclick="selectService(value)">
+                  <text class="goods-specification-text goods-specification-text-ellipse">{{ value.unitedText }}</text>
+                  <text class="goods-specification-text goods-specification-text-service">,选服务</text>
+                </div>
+                <div class="goods-show-price">
+                  <text class="goods-show-price-text">¥{{ value.Price }}</text>
+                  <div class="goods-num-content">
+                    <text class="num-option num-reduce {{ value.Num === 1 ? 'num-option-disabled' : '' }}"
+                          onclick="handleGoodsReduce(value)">-</text>
+                    <text class="goods-num-text">{{ value.Num }}</text>
+                    <text class="num-option num-increase" onclick="handleGoodsIncrease(value)">+</text>
+                  </div>
+                </div>
+                <div class="goods-estimate-price">
+                  <text class="goods-estimate-price-text">预估到手价 ¥{{
+                    ((value.Price * value.Num - value.Discount) / value.Num).toFixed(2) }}</text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div show="{{dataLoading}}" class="data-loading">
+      <image class="loading-gif" src="../../common/images/loaddata.gif"></image>
+    </div>
+    <div if="{{ cartList.length === 0 && !dataLoading }}" class="cart-null">
+      <image class="cart-null-image" src="../../common/images/5a93c51cN3bb5e37b.png"></image>
+      <text class="cart-null-message">购物车空空如也，去逛逛吧</text>
+    </div>
+    <div if="{{ cartList.length > 0 }}" class="price-statistics">
+      <div class="price-statistics-left">
+        <div class="checked-all-content">
+          <div class="checkbox-content">
+            <div class="checkbox-image-content" onclick="handleCheckedAll">
+              <image if="{{ checkedAll }}" class="checkbox-image-item" src="../../common/images/icon_selected.png">
+              </image>
+              <image if="{{ ! checkedAll }}" class="checkbox-image-item" src="../../common/images/icon_unselected.png">
+              </image>
+            </div>
+          </div>
+          <text class="checked-all-text">全选</text>
+        </div>
+        <div show="{{ ! isEdit }}" class="price-content">
+          <text class="total-price-text">合计:¥{{ totalPrice }}</text>
+          <text class="discount-amount">优惠减:¥{{ discountPrice }}</text>
+        </div>
+      </div>
+      <button if="{{ ! isEdit }}" type="capsule" class="buy-button" onclick="toOrder">去结算({{ buyTotal }})</button>
+      <div if="{{ isEdit }}" class="edit-button-content">
+        <button class="edit-button-content-item" onclick="handleCollect">移入收藏</button>
+        <button class="edit-button-content-item" onclick="handleDelete">删除</button>
+      </div>
+    </div>
+    <tabbar></tabbar>
+    <dialog id="confirm-dialog">
+      <div class="dialog-container">
+        <div class="dialog-message">
+          <text class="dialog-message-text">{{ dialogMessage }}</text>
+        </div>
+        <div class="dialog-button-content">
+          <button if="{{ dialogType === 1 }}" class="button-item cancel-button" onclick="handleDialogCancel">我再想想
+          </button>
+          <button if="{{ dialogType === 1 }}" class="button-item confirm-button" onclick="handleDilaogConfirm">移入收藏
+          </button>
+          <button if="{{ dialogType === 2 }}" class="button-item cancel-button" onclick="handleDialogCancel">取消</button>
+          <button if="{{ dialogType === 2 }}" class="button-item confirm-button" onclick="handleDilaogConfirm">确定
+          </button>
+        </div>
+      </div>
+    </dialog>
+    <panel id="simplepanel" type="foldable" mode="half" dragbar="false" miniheight="200px">
+      <div class="panel-div">
+        <div class="inner-txt">
+          <text class="txt">服务选择</text>
+        </div>
+        <div class="inner-btn">
+          <button type="capsule" value="Close" onclick="closePanel"></button>
+        </div>
+      </div>
+    </panel>
+  </div>
+</div>

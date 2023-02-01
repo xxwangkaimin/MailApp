@@ -1,0 +1,58 @@
+<element name="tabbar" src="../../components/tabbar/tabbar.hml"></element>
+<div class="page-wrapper">
+  <div class="search-wrapper">
+    <div class="search-container">
+      <image class="search-bar" src="../../common/images/index/bar.png"></image>
+      <div class="input-content">
+        <image class="search-icon" src="../../common/images/index/search.png"></image>
+        <text class="search-key" onclick="searchKeyClick">{{ searchKey }}</text>
+      </div>
+      <image class="search-user" src="../../common/images/index/user.png"></image>
+    </div>
+  </div>
+  <div class="slider-wrapper">
+    <div class="slider-bg"></div>
+    <swiper class="swiper banner-swiper" indicator="true" loop="true" autoplay="true">
+      <div for="{{ bannerList }}" class="swiper-content banner-swiper-content">
+        <image class="banner-swiper-image" src="{{ $item.image }}"></image>
+      </div>
+    </swiper>
+  </div>
+  <div class="box-wrapper">
+    <swiper class="swiper function-swiper" indicator="true" loop="false">
+      <div for="{{ value in functionList }}" class="swiper-content function-swiper-content">
+        <div for="{{ tmp in value }}" class="function-item">
+          <image class="function-image" src="{{ tmp.image }}"></image>
+          <text class="function-text">{{ tmp.text }}</text>
+        </div>
+      </div>
+    </swiper>
+  </div>
+  <div class="goods-wrapper">
+    <div class="goods--wrapper goods-left-wrapper">
+      <div for="{{ goodsLeftList }}" class="goods-item">
+        <div class="goods-item-content">
+          <div class="goods-item-image-content">
+            <image class="goods-image" src="https:{{ $item.imgprefix }}{{ $item.imgbase }}"></image>
+          </div>
+          <div class="goods-info">
+            <text class="goods-name">{{ $item.name }}</text>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="goods--wrapper goods-right-wrapper">
+      <div for="{{ goodsRightList }}" class="goods-item">
+        <div class="goods-item-content">
+          <div class="goods-item-image-content">
+            <image class="goods-image" src="https:{{ $item.imgprefix }}{{ $item.imgbase }}"></image>
+          </div>
+          <div class="goods-info">
+            <text class="goods-name">{{ $item.name }}</text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <tabbar></tabbar>
+</div>
